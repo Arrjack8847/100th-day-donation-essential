@@ -166,7 +166,7 @@
 .tapHint {
   margin: .08rem 0 0;
   color: rgba(119,92,72,.63);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
   font-size: clamp(.65rem, 1.8vw, .76rem);
   font-style: italic;
   line-height: 1.25;
@@ -562,4 +562,86 @@
 @keyframes littleHeartFade {
   0%,100% { opacity: 0; }
   45% { opacity: .85; }
+}
+
+
+/* Essential touch surprise ------------------------------------------------ */
+.surpriseBurst {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.surpriseBurst i {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  color: #d98f75;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(.9rem, 4.2vw, 1.25rem);
+  font-style: normal;
+  line-height: 1;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.45);
+  will-change: transform, opacity;
+}
+
+.surpriseBurst i:nth-child(2),
+.surpriseBurst i:nth-child(4),
+.surpriseBurst i:nth-child(6) {
+  color: #d5aa62;
+  font-size: clamp(.72rem, 3.4vw, 1rem);
+}
+
+.surpriseBurstActive i:nth-child(1) { animation: burstOne .7s cubic-bezier(.2,.75,.2,1) both; }
+.surpriseBurstActive i:nth-child(2) { animation: burstTwo .68s cubic-bezier(.2,.75,.2,1) .03s both; }
+.surpriseBurstActive i:nth-child(3) { animation: burstThree .72s cubic-bezier(.2,.75,.2,1) .01s both; }
+.surpriseBurstActive i:nth-child(4) { animation: burstFour .66s cubic-bezier(.2,.75,.2,1) .05s both; }
+.surpriseBurstActive i:nth-child(5) { animation: burstFive .7s cubic-bezier(.2,.75,.2,1) .025s both; }
+.surpriseBurstActive i:nth-child(6) { animation: burstSix .69s cubic-bezier(.2,.75,.2,1) .045s both; }
+
+@keyframes burstOne {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.4) rotate(0); }
+  24% { opacity: .95; }
+  100% { opacity: 0; transform: translate(-115px,-92px) scale(1.08) rotate(-18deg); }
+}
+@keyframes burstTwo {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.4) rotate(0); }
+  24% { opacity: .9; }
+  100% { opacity: 0; transform: translate(72px,-120px) scale(.95) rotate(24deg); }
+}
+@keyframes burstThree {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.4) rotate(0); }
+  24% { opacity: .95; }
+  100% { opacity: 0; transform: translate(92px,-52px) scale(1.12) rotate(15deg); }
+}
+@keyframes burstFour {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.4) rotate(0); }
+  24% { opacity: .9; }
+  100% { opacity: 0; transform: translate(-96px,24px) scale(.88) rotate(-24deg); }
+}
+@keyframes burstFive {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.4) rotate(0); }
+  24% { opacity: .95; }
+  100% { opacity: 0; transform: translate(84px,31px) scale(1.04) rotate(20deg); }
+}
+@keyframes burstSix {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.4) rotate(0); }
+  24% { opacity: .9; }
+  100% { opacity: 0; transform: translate(-28px,-135px) scale(.9) rotate(-8deg); }
+}
+
+@media (max-width: 560px) {
+  .surpriseBurstActive i {
+    animation-duration: .62s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .surpriseBurstActive i {
+    animation-name: littleHeartFade !important;
+    animation-duration: .4s !important;
+  }
 }

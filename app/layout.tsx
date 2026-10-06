@@ -1,5 +1,20 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { Cormorant_Garamond, Dancing_Script } from "next/font/google";
 import "./globals.css";
+
+const editorialSerif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-serif",
+});
+
+const handwrittenScript = Dancing_Script({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-script",
+});
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -37,6 +52,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#f7f2e8",
 };
 
 export default function RootLayout({
@@ -46,7 +62,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${editorialSerif.variable} ${handwrittenScript.variable}`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

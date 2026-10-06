@@ -143,9 +143,23 @@ export default function MotionSystem() {
 
         const context = gsap.context(() => {
           const compactMotion = window.innerWidth <= 768;
-          const distanceScale = compactMotion ? 0.52 : 1;
-          const durationScale = compactMotion ? 0.88 : 1;
-          const staggerScale = compactMotion ? 0.78 : 1;
+          const deviceMemory =
+            (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8;
+          const hardwareThreads = navigator.hardwareConcurrency || 8;
+          const lowPowerMotion =
+            compactMotion && (deviceMemory <= 4 || hardwareThreads <= 4);
+
+          // Essential never removes the motion language on mobile. Lower-power
+          // phones keep every effect with slightly shorter travel and softer blur.
+          const distanceScale = compactMotion
+            ? lowPowerMotion ? 0.42 : 0.52
+            : 1;
+          const durationScale = compactMotion
+            ? lowPowerMotion ? 0.82 : 0.88
+            : 1;
+          const staggerScale = compactMotion
+            ? lowPowerMotion ? 0.7 : 0.78
+            : 1;
           const allReveal = asElements<HTMLElement>(root, "[data-reveal]");
 
           // GSAP owns reveal transforms once the motion system is active.
@@ -181,6 +195,10 @@ export default function MotionSystem() {
             hero?.querySelector<HTMLElement>(".hero-location-button");
           const heroEmotionalCopy =
             hero?.querySelector<HTMLElement>(".hero-emotional-copy");
+          const heroTapParticles = asElements<HTMLElement>(
+            hero,
+            "[data-hero-tap-burst] span",
+          );
 
           const heroTargets = [
             heroPhoto,
@@ -200,6 +218,14 @@ export default function MotionSystem() {
             });
           }
 
+          if (heroPhotoImage) {
+            gsap.set(heroPhotoImage, {
+              autoAlpha: 0.16,
+              scale: 1.055,
+              transformOrigin: "50% 50%",
+            });
+          }
+
           if (heroIntro) {
             gsap.set(heroIntro, { autoAlpha: 0, y: 8 });
           }
@@ -207,7 +233,7 @@ export default function MotionSystem() {
           if (heroHundredReveal) {
             gsap.set(heroHundredReveal, {
               autoAlpha: 1,
-              scale: compactMotion ? 0.92 : 0.9,
+              scale: compactMotion ? 0.88 : 0.86,
               transformOrigin: "50% 50%",
             });
           }
@@ -296,20 +322,57 @@ export default function MotionSystem() {
             heroTimeline.to(
               heroHundredReveal,
               {
-                autoAlpha: compactMotion ? 0.16 : 0.18,
-                scale: compactMotion ? 1.055 : 1.075,
-                duration: 0.72 * durationScale,
-                ease: "power2.inOut",
+                scale: compactMotion ? 1.035 : 1.055,
+                duration: 0.42 * durationScale,
+                ease: "power2.out",
               },
-              0.72,
+              0.36,
             );
+          }
+
+          if (heroPhotoImage) {
+            heroTimeline.to(
+              heroPhotoImage,
+              {
+                autoAlpha: 1,
+                scale: 1,
+                duration: 0.62 * durationScale,
+                ease: "power2.out",
+              },
+              0.56,
+            );
+          }
+
+          if (heroHundredPieces.length) {
+            heroHundredPieces.forEach((piece, index) => {
+              const directions = [
+                { x: compactMotion ? -16 : -24, y: -4, rotation: -2.5 },
+                { x: 0, y: compactMotion ? 12 : 17, rotation: 1.2 },
+                { x: compactMotion ? 16 : 24, y: -3, rotation: 2.8 },
+              ];
+              const direction = directions[index] ?? directions[0];
+
+              heroTimeline.to(
+                piece,
+                {
+                  autoAlpha: compactMotion ? 0.12 : 0.14,
+                  x: direction.x,
+                  y: direction.y,
+                  rotation: direction.rotation,
+                  scale: compactMotion ? 1.045 : 1.065,
+                  duration: 0.62 * durationScale,
+                  ease: "power2.inOut",
+                },
+                0.66 + index * 0.035,
+              );
+            });
           }
 
           if (heroIntro) {
             heroTimeline.to(
               heroIntro,
               { autoAlpha: 1, y: 0, duration: 0.7 },
-              0.15,
+              0.66,
             );
           }
 
@@ -317,7 +380,7 @@ export default function MotionSystem() {
             heroTimeline.to(
               heroTitleMain,
               { autoAlpha: 1, y: 0, duration: 0.86 },
-              0.29,
+              0.78,
             );
           }
 
@@ -325,7 +388,7 @@ export default function MotionSystem() {
             heroTimeline.to(
               heroTitleScript,
               { autoAlpha: 1, y: 0, duration: 0.82 },
-              0.39,
+              0.88,
             );
           }
 
@@ -333,7 +396,7 @@ export default function MotionSystem() {
             heroTimeline.to(
               heroCopy,
               { autoAlpha: 1, y: 0, duration: 0.72 },
-              0.53,
+              0.96,
             );
           }
 
@@ -346,7 +409,7 @@ export default function MotionSystem() {
                 duration: 0.58 * durationScale,
                 stagger: 0.085 * staggerScale,
               },
-              0.58,
+              1.06,
             );
           }
 
@@ -359,7 +422,7 @@ export default function MotionSystem() {
                 scale: 1,
                 duration: 0.52 * durationScale,
               },
-              0.76,
+              1.2,
             );
           }
 
@@ -371,7 +434,7 @@ export default function MotionSystem() {
                 y: 0,
                 duration: 0.62 * durationScale,
               },
-              0.88,
+              1.3,
             );
           }
 
@@ -379,7 +442,7 @@ export default function MotionSystem() {
             heroTimeline.to(
               heroCue,
               { autoAlpha: 1, y: 0, duration: 0.62 },
-              0.98,
+              1.42,
             );
           }
 
@@ -395,7 +458,7 @@ export default function MotionSystem() {
                 trigger: hero,
                 start: "top top",
                 end: "bottom top",
-                scrub: compactMotion ? 1.15 : 1,
+                scrub: compactMotion ? (lowPowerMotion ? 1.35 : 1.15) : 1,
               },
             });
           }
@@ -543,7 +606,7 @@ export default function MotionSystem() {
               if (image) {
                 meaningTimeline.fromTo(
                   image,
-                  { filter: compactMotion ? "blur(1.2px)" : "blur(2.4px)", scale: 1.012 },
+                  { filter: compactMotion ? (lowPowerMotion ? "blur(.65px)" : "blur(1.2px)") : "blur(2.4px)", scale: 1.012 },
                   {
                     filter: "blur(0px)",
                     scale: 1,
@@ -801,7 +864,7 @@ export default function MotionSystem() {
               if (image) {
                 closingTimeline.fromTo(
                   image,
-                  { filter: compactMotion ? "blur(1px)" : "blur(2px)", scale: 1.01 },
+                  { filter: compactMotion ? (lowPowerMotion ? "blur(.55px)" : "blur(1px)") : "blur(2px)", scale: 1.01 },
                   {
                     filter: "blur(0px)",
                     scale: 1,
@@ -978,6 +1041,8 @@ export default function MotionSystem() {
             });
           }
 
+          const storyThread =
+            layer.querySelector<HTMLElement>("[data-story-thread]");
           const memoryTrail =
             layer.querySelector<HTMLElement>("[data-memory-trail]");
           const memoryBubble =
@@ -992,6 +1057,14 @@ export default function MotionSystem() {
             layer.querySelector<HTMLElement>("[data-foreground-petal-two]");
           const sparkle =
             layer.querySelector<HTMLElement>("[data-foreground-sparkle]");
+
+          if (storyThread) {
+            gsap.set(storyThread, {
+              scaleY: 0,
+              transformOrigin: "50% 0%",
+              autoAlpha: compactMotion ? 0.48 : 0.4,
+            });
+          }
 
           if (memorySparkle) {
             gsap.set(memorySparkle, { autoAlpha: 0, scale: 0.72 });
@@ -1009,6 +1082,18 @@ export default function MotionSystem() {
               invalidateOnRefresh: true,
             },
           });
+
+          if (storyThread) {
+            storyTimeline.to(
+              storyThread,
+              {
+                scaleY: 1,
+                duration: 5,
+                ease: "none",
+              },
+              0,
+            );
+          }
 
           if (memoryTrail && storyTimeline) {
             storyTimeline
@@ -1193,6 +1278,15 @@ export default function MotionSystem() {
             layer.querySelector<HTMLElement>("[data-motion-tap]");
 
           if (heroPhoto && heroPhotoImage) {
+            const burstVectors = [
+              { x: -74, y: -82, r: -18 },
+              { x: 26, y: -104, r: 16 },
+              { x: 82, y: -57, r: 20 },
+              { x: -87, y: -12, r: -25 },
+              { x: 68, y: 18, r: 14 },
+              { x: -16, y: -118, r: -8 },
+            ];
+
             const onHeroPhotoTap = () => {
               gsap.fromTo(
                 heroPhoto,
@@ -1206,6 +1300,41 @@ export default function MotionSystem() {
                   overwrite: "auto",
                 },
               );
+
+              heroTapParticles.forEach((particle, index) => {
+                const vector = burstVectors[index] ?? burstVectors[0];
+                const travel = compactMotion ? 0.86 : 1;
+
+                gsap.killTweensOf(particle);
+                gsap.set(particle, {
+                  autoAlpha: 0,
+                  x: 0,
+                  y: 0,
+                  scale: 0.35,
+                  rotation: 0,
+                });
+
+                gsap.timeline()
+                  .to(particle, {
+                    autoAlpha: 0.92,
+                    scale: 1,
+                    duration: 0.14,
+                    ease: "power2.out",
+                  })
+                  .to(
+                    particle,
+                    {
+                      autoAlpha: 0,
+                      x: vector.x * travel,
+                      y: vector.y * travel,
+                      rotation: vector.r,
+                      scale: 1.08,
+                      duration: lowPowerMotion ? 0.46 : 0.58,
+                      ease: "power2.out",
+                    },
+                    0.08 + index * 0.012,
+                  );
+              });
             };
 
             heroPhoto.addEventListener("pointerdown", onHeroPhotoTap, {

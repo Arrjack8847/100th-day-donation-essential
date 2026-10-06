@@ -127,6 +127,15 @@ export default function InvitationContent() {
               </span>
             </div>
 
+            <div className="hero-tap-burst" data-hero-tap-burst aria-hidden="true">
+              <span>♡</span>
+              <span>✦</span>
+              <span>♡</span>
+              <span>✧</span>
+              <span>♡</span>
+              <span>✦</span>
+            </div>
+
             <div className="hero-photo-blob">
               <img
                 src="/child's photo/01-100-days-baby-portrait.jpg"

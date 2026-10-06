@@ -8,10 +8,33 @@
   contain: layout style;
 }
 
+.storyThread {
+  position: absolute;
+  z-index: 0;
+  top: min(13rem, 16vh);
+  bottom: 7rem;
+  right: 32px;
+  width: 1px;
+  opacity: .42;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(210, 147, 124, .34) 8%,
+    rgba(155, 169, 145, .3) 48%,
+    rgba(210, 147, 124, .32) 90%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(211, 155, 128, .08);
+  transform: scaleY(0);
+  transform-origin: 50% 0%;
+  will-change: transform, opacity;
+}
+
 .memoryTrail {
   position: absolute;
   top: min(13rem, 16vh);
-  left: min(88vw, calc(100% - 42px));
+  left: auto;
+  right: 18px;
   width: 28px;
   height: 28px;
   opacity: .78;
@@ -51,14 +74,14 @@
 
 .memorySparkle {
   color: rgba(180, 129, 94, .78);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
   font-size: 1.05rem;
   line-height: 1;
 }
 
 .memoryHeart {
   color: rgba(173, 105, 82, .72);
-  font-family: "Segoe Script", "Bradley Hand", cursive;
+  font-family: var(--font-script), "Segoe Script", "Bradley Hand", cursive;
   font-size: 1.2rem;
   line-height: 1;
 }
@@ -103,7 +126,7 @@
   top: 62vh;
   right: 8vw;
   color: rgba(183, 141, 104, .46);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
   font-size: 1rem;
   line-height: 1;
   opacity: .72;
@@ -143,11 +166,19 @@
     contain: layout style paint;
   }
 
+  .storyThread {
+    right: 21px;
+    top: 12rem;
+    bottom: 5rem;
+    opacity: .5;
+  }
+
   .memoryTrail {
-    left: calc(100% - 32px);
+    left: auto;
+    right: 10px;
     width: 22px;
     height: 22px;
-    opacity: .68;
+    opacity: .7;
   }
 
   .memoryPointer {

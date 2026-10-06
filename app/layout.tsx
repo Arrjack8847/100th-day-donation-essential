@@ -1,20 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Cormorant_Garamond, Dancing_Script } from "next/font/google";
+import "@fontsource/cormorant-garamond/400.css";
+import "@fontsource/cormorant-garamond/500.css";
+import "@fontsource/cormorant-garamond/600.css";
+import "@fontsource/dancing-script/400.css";
+import "@fontsource/dancing-script/500.css";
+import "@fontsource/dancing-script/600.css";
 import "./globals.css";
-
-const editorialSerif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-serif",
-});
-
-const handwrittenScript = Dancing_Script({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-script",
-});
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -62,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${editorialSerif.variable} ${handwrittenScript.variable}`}>
+      <body>
         {children}
         <Analytics />
       </body>

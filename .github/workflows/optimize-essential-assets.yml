@@ -1,0 +1,91 @@
+name: Optimize Essential Assets
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    if: github.event.head_commit.message == 'Optimize Essential assets'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install WebP tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y webp
+
+      - name: Convert heavy required PNG assets
+        shell: bash
+        run: |
+          convert_webp () {
+            input="$1"
+            output="$2"
+            if [ -f "$input" ]; then
+              cwebp -quiet -q 82 -m 6 -metadata none "$input" -o "$output"
+            fi
+          }
+
+          convert_webp "public/sparkle-doodle.png" "public/sparkle-doodle.webp"
+          convert_webp "public/components/heart-doodle.png" "public/components/heart-doodle.webp"
+          convert_webp "public/text.png" "public/text.webp"
+          convert_webp "public/banner.png" "public/banner.webp"
+          convert_webp "public/components/paper-grain.png" "public/components/paper-grain.webp"
+          convert_webp "public/photo_2026-09-28_14-18-19-Photoroom.png" "public/photo_2026-09-28_14-18-19-Photoroom.webp"
+
+          grep -RIl --exclude-dir=.git '/sparkle-doodle.png' app components | xargs -r sed -i 's#/sparkle-doodle\.png#/sparkle-doodle.webp#g'
+          grep -RIl --exclude-dir=.git '/components/heart-doodle.png' app components | xargs -r sed -i 's#/components/heart-doodle\.png#/components/heart-doodle.webp#g'
+          grep -RIl --exclude-dir=.git '/text.png' app components | xargs -r sed -i 's#/text\.png#/text.webp#g'
+          grep -RIl --exclude-dir=.git '/banner.png' app components | xargs -r sed -i 's#/banner\.png#/banner.webp#g'
+          grep -RIl --exclude-dir=.git '/components/paper-grain.png' app components | xargs -r sed -i 's#/components/paper-grain\.png#/components/paper-grain.webp#g'
+          grep -RIl --exclude-dir=.git '/photo_2026-09-28_14-18-19-Photoroom.png' app components | xargs -r sed -i 's#/photo_2026-09-28_14-18-19-Photoroom\.png#/photo_2026-09-28_14-18-19-Photoroom.webp#g'
+
+          rm -f             "public/sparkle-doodle.png"             "public/components/heart-doodle.png"             "public/text.png"             "public/banner.png"             "public/components/paper-grain.png"             "public/photo_2026-09-28_14-18-19-Photoroom.png"
+
+      - name: Remove duplicate source assets
+        shell: bash
+        run: |
+          rm -f             "ribbon bow.png"             "sparkle-doodle-local-backup.png"             "sparkle-doodle.png"             "heart doodle.png"             "text.png"             "banner.png"             "11_lotus_foreground.png"             "mask.png"
+
+          if ! grep -RIl --exclude-dir=.git -F '/ribbon bow.png' app components >/dev/null 2>&1; then
+            rm -f "public/ribbon bow.png"
+          fi
+          if ! grep -RIl --exclude-dir=.git -F '/decor/sparkle-doodle.png' app components >/dev/null 2>&1; then
+            rm -f "public/decor/sparkle-doodle.png"
+          fi
+          if ! grep -RIl --exclude-dir=.git -F '/decor/heart-doodle.png' app components >/dev/null 2>&1; then
+            rm -f "public/decor/heart-doodle.png"
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Production build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: npm run build
+
+      - name: Remove one-time workflow
+        run: rm -f .github/workflows/optimize-essential-assets.yml
+
+      - name: Commit optimized assets
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Optimize Essential mobile assets"
+          git push origin main

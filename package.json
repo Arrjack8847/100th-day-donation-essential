@@ -1,5 +1,5 @@
 {
-  "name": "100th-day-donation-invitation",
+  "name": "100th-day-donation-essential",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "gsap": "^3.13.0",
     "next": "^16.0.0",
     "react": "^19.0.0",

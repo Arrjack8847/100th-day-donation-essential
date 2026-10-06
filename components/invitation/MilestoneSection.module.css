@@ -166,7 +166,7 @@
 .tapHint {
   margin: .08rem 0 0;
   color: rgba(119,92,72,.63);
-  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif), var(--font-serif), Georgia, "Times New Roman", serif;
   font-size: clamp(.65rem, 1.8vw, .76rem);
   font-style: italic;
   line-height: 1.25;
@@ -215,7 +215,7 @@
   right: 7%;
   top: 51%;
   color: #e48f73;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   line-height: 1;
   pointer-events: none;

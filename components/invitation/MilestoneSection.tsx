@@ -4,12 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./MilestoneSection.module.css";
 import { SectionDecor, SectionDivider } from "../decor/SiteDecor";
 
-const SOUND_SRC = "/mu-hehehehe-cat-memes-hehe-shorts_v8KezVEr.mp3";
+const burstSymbols = ["♡", "✦", "♡", "✧", "♡", "✦"];
 
 export default function MilestoneSection() {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [isShaking, setIsShaking] = useState(false);
+  const [isReacting, setIsReacting] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
 
   useEffect(() => {
@@ -19,21 +18,13 @@ export default function MilestoneSection() {
   }, []);
 
   const playSurprise = () => {
-    if (isShaking) return;
+    if (isReacting) return;
 
-    setIsShaking(true);
+    setIsReacting(true);
     setHasPlayed(true);
 
-    const audio = audioRef.current;
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-      audio.volume = 0.62;
-      void audio.play().catch(() => {});
-    }
-
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => setIsShaking(false), 650);
+    timerRef.current = setTimeout(() => setIsReacting(false), 720);
   };
 
   return (
@@ -43,7 +34,6 @@ export default function MilestoneSection() {
       aria-label="Celebrating one hundred days"
       data-motion-section="milestone"
     >
-      <audio ref={audioRef} src={SOUND_SRC} preload="auto" />
       <div className={styles.paperGlow} aria-hidden="true" />
       <SectionDecor variant="milestone" />
 
@@ -51,9 +41,9 @@ export default function MilestoneSection() {
         <div className={styles.portraitStage} data-motion-role="milestone-portrait">
           <button
             type="button"
-            className={`${styles.portraitButton} ${isShaking ? styles.isShaking : ""}`}
+            className={`${styles.portraitButton} ${isReacting ? styles.isShaking : ""}`}
             onClick={playSurprise}
-            aria-label="Tap the baby for a little surprise"
+            aria-label="Tap the baby for a little visual surprise"
           >
             <img
               className={styles.portrait}
@@ -63,16 +53,26 @@ export default function MilestoneSection() {
               decoding="async"
               draggable={false}
             />
+
             <span
-              className={`${styles.tapHeart} ${isShaking ? styles.tapHeartActive : ""}`}
+              className={`${styles.tapHeart} ${isReacting ? styles.tapHeartActive : ""}`}
               aria-hidden="true"
             >
               ♡
             </span>
+
+            <span
+              className={`${styles.surpriseBurst} ${isReacting ? styles.surpriseBurstActive : ""}`}
+              aria-hidden="true"
+            >
+              {burstSymbols.map((symbol, index) => (
+                <i key={`${symbol}-${index}`}>{symbol}</i>
+              ))}
+            </span>
           </button>
 
           <div
-            className={`${styles.assetDoodles} ${isShaking ? styles.assetDoodlesReacting : ""}`}
+            className={`${styles.assetDoodles} ${isReacting ? styles.assetDoodlesReacting : ""}`}
             aria-hidden="true"
           >
             <img
@@ -127,7 +127,9 @@ export default function MilestoneSection() {
           />
         </div>
 
-        <div data-motion-role="milestone-divider"><SectionDivider variant="simple" /></div>
+        <div data-motion-role="milestone-divider">
+          <SectionDivider variant="simple" />
+        </div>
 
         <div className={styles.bannerWrap} data-motion-role="milestone-banner" aria-hidden="true">
           <img

@@ -1,0 +1,249 @@
+.bridge {
+  position: relative;
+  z-index: 4;
+  height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.canvas {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -64px;
+  height: 128px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wash {
+  position: absolute;
+  width: min(410px, 72vw);
+  height: 76px;
+  left: 50%;
+  top: 25px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(205, 148, 119, .08) 0%,
+    rgba(205, 148, 119, .028) 52%,
+    transparent 78%
+  );
+  filter: blur(8px);
+  opacity: 0;
+  transform: translateX(-50%) scale(.9);
+  transition:
+    opacity .8s ease .08s,
+    transform .95s cubic-bezier(.2,.8,.2,1) .08s;
+}
+
+.bridge:global(.is-visible) .wash {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.asset {
+  position: absolute;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity .75s ease .18s;
+}
+
+.bridge:global(.is-visible) .asset {
+  opacity: .46;
+}
+
+/* hero -> milestone: celebration gently continues */
+.heroToMilestone .primary {
+  width: clamp(70px, 15vw, 126px);
+  left: clamp(-20px, 4vw, 55px);
+  top: 15px;
+  transform: rotate(-8deg);
+  animation: bridgeBubbleDrift 13s ease-in-out infinite alternate;
+}
+
+.heroToMilestone .secondary {
+  width: clamp(68px, 13vw, 112px);
+  right: clamp(8px, 7vw, 92px);
+  bottom: 20px;
+  transform: rotate(6deg);
+  animation: bridgeSparkleBreathe 7.5s ease-in-out -1.6s infinite;
+}
+
+/* milestone -> story: eye-guiding line with one small dot cluster */
+.milestoneToMeaning .primary {
+  width: clamp(150px, 32vw, 290px);
+  left: clamp(-28px, 4vw, 72px);
+  top: 32px;
+  opacity: 0;
+  transform: rotate(-3deg);
+}
+
+.milestoneToMeaning:global(.is-visible) .primary {
+  opacity: .32;
+}
+
+.milestoneToMeaning .secondary {
+  width: clamp(48px, 10vw, 76px);
+  right: clamp(16px, 10vw, 140px);
+  bottom: 20px;
+  transform: rotate(4deg);
+}
+
+/* story -> scrapbook: one botanical edge + compact doodle cluster */
+.meaningToMoments .primary {
+  width: clamp(105px, 22vw, 190px);
+  left: clamp(-52px, -2vw, -12px);
+  top: 2px;
+  transform: rotate(-5deg);
+}
+
+.meaningToMoments .secondary {
+  width: clamp(54px, 11vw, 88px);
+  right: clamp(15px, 8vw, 116px);
+  bottom: 18px;
+  transform: rotate(7deg);
+}
+
+/* scrapbook -> ceremony: decorative language becomes calmer */
+.momentsToEvent .primary {
+  width: clamp(190px, 42vw, 360px);
+  left: 50%;
+  top: 2px;
+  transform: translateX(-50%);
+}
+
+.momentsToEvent .secondary {
+  width: clamp(88px, 19vw, 150px);
+  right: clamp(18px, 10vw, 145px);
+  bottom: 18px;
+}
+
+/* ceremony -> donation: one drifting petal + restrained lower floral edge */
+.eventToDonation .primary {
+  width: clamp(24px, 5vw, 38px);
+  left: clamp(32px, 14vw, 190px);
+  top: 31px;
+  transform: rotate(-10deg);
+  animation: bridgePetalDrift 17s ease-in-out -5s infinite alternate;
+}
+
+.eventToDonation .secondary {
+  width: clamp(170px, 38vw, 320px);
+  right: clamp(-45px, 2vw, 35px);
+  bottom: 0;
+  transform: rotate(1deg);
+}
+
+/* donation -> closing: the opening bubbles return */
+.donationToClosing .primary {
+  width: clamp(72px, 15vw, 126px);
+  left: clamp(14px, 7vw, 105px);
+  top: 16px;
+  transform: rotate(-7deg);
+  animation: bridgeBubbleDrift 15s ease-in-out -3s infinite alternate;
+}
+
+.donationToClosing .secondary {
+  width: clamp(70px, 14vw, 118px);
+  right: clamp(5px, 6vw, 88px);
+  bottom: 8px;
+  transform: rotate(5deg);
+}
+
+@keyframes bridgeBubbleDrift {
+  from {
+    transform: translate3d(0, 6px, 0) rotate(-8deg);
+  }
+  to {
+    transform: translate3d(7px, -9px, 0) rotate(-4deg);
+  }
+}
+
+@keyframes bridgeSparkleBreathe {
+  0%,
+  100% {
+    transform: rotate(6deg) scale(.94);
+    filter: opacity(.76);
+  }
+  50% {
+    transform: rotate(6deg) scale(1);
+    filter: opacity(1);
+  }
+}
+
+@keyframes bridgePetalDrift {
+  from {
+    transform: translate3d(0, -4px, 0) rotate(-10deg);
+  }
+  to {
+    transform: translate3d(7px, 10px, 0) rotate(1deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .canvas {
+    top: -54px;
+    height: 108px;
+  }
+
+  .wash {
+    width: 82vw;
+    height: 66px;
+    top: 22px;
+  }
+
+  .meaningToMoments .primary {
+    left: -64px;
+  }
+
+  .momentsToEvent .primary {
+    width: 58vw;
+  }
+
+  .eventToDonation .secondary {
+    right: -65px;
+  }
+
+  .bridge:global(.is-visible) .asset {
+    opacity: .4;
+  }
+
+  .milestoneToMeaning:global(.is-visible) .primary {
+    opacity: .28;
+  }
+
+  .wash {
+    filter: none;
+  }
+
+  .heroToMilestone .primary,
+  .heroToMilestone .secondary,
+  .eventToDonation .primary,
+  .donationToClosing .primary {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bridge,
+  .wash,
+  .asset {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .wash {
+    opacity: .8;
+    transform: translateX(-50%) scale(1);
+  }
+
+  .asset {
+    opacity: .4;
+  }
+}

@@ -1,0 +1,602 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.asset {
+  --decor-size: 48px;
+  --decor-opacity: .6;
+  --decor-rotation: 0deg;
+  --decor-delay: 0s;
+  --decor-duration: 12s;
+  position: absolute;
+  width: var(--decor-size);
+  height: auto;
+  display: block;
+  opacity: var(--decor-opacity);
+  object-fit: contain;
+  transform: rotate(var(--decor-rotation));
+  transform-origin: center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.paperTexture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: .038;
+  pointer-events: none;
+  user-select: none;
+}
+
+.paperTexture img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.inlineDivider {
+  width: min(132px, 42vw);
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  opacity: .58;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.simpleDivider {
+  width: min(118px, 35vw);
+  opacity: .5;
+}
+
+.lotusDivider {
+  width: min(152px, 46vw);
+  opacity: .54;
+}
+
+.scrapbookTape {
+  position: absolute;
+  z-index: 8;
+  width: clamp(46px, 17vw, 84px) !important;
+  height: auto !important;
+  max-height: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+.topLeft {
+  top: -12px;
+  left: 8%;
+  transform: rotate(-5deg);
+}
+
+.topCenter {
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+}
+
+.topRight {
+  top: -12px;
+  right: 8%;
+  transform: rotate(5deg);
+}
+
+.corner {
+  top: -10px;
+  right: -10px;
+  width: clamp(38px, 13vw, 66px) !important;
+  transform: rotate(4deg);
+}
+
+.photoDecor,
+.photoDecorAccent {
+  position: absolute !important;
+  z-index: 7;
+  display: block !important;
+  height: auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+.photoDecor {
+  inset: -5% !important;
+  width: 110% !important;
+  max-width: none !important;
+}
+
+.polaroidFrame {
+  opacity: .9;
+  transform: rotate(-.4deg);
+}
+
+.handdrawnFrame {
+  inset: -4% !important;
+  width: 108% !important;
+  opacity: .78;
+  transform: rotate(-1deg);
+}
+
+.photoMiniFlower {
+  width: clamp(24px, 7vw, 38px) !important;
+  right: -7px !important;
+  bottom: 8% !important;
+  opacity: .66;
+  transform: rotate(8deg);
+}
+
+.photoHeart {
+  width: clamp(22px, 6vw, 34px) !important;
+  right: -5px !important;
+  bottom: -9px !important;
+  opacity: .58;
+  transform: rotate(9deg);
+}
+
+.photoCorner {
+  width: clamp(34px, 11vw, 56px) !important;
+  right: -5px !important;
+  bottom: -5px !important;
+  opacity: .88;
+}
+
+.photoCluster {
+  width: clamp(44px, 13vw, 70px) !important;
+  left: -13px !important;
+  top: 7% !important;
+  opacity: .48;
+  transform: rotate(-7deg);
+}
+
+.bubble {
+  animation: bubbleDrift var(--decor-duration) ease-in-out var(--decor-delay) infinite alternate;
+}
+
+.sparkle {
+  animation: sparkleBreathe var(--decor-duration) ease-in-out var(--decor-delay) infinite;
+}
+
+.petal {
+  animation: petalDrift var(--decor-duration) ease-in-out var(--decor-delay) infinite alternate;
+}
+
+/* Opening: magical + clean */
+.openingLayer {
+  z-index: 8;
+}
+
+.openingGlow {
+  --decor-size: clamp(310px, 92vw, 610px);
+  left: 50%;
+  top: 14%;
+  transform: translateX(-50%);
+}
+
+.openingBubbleLeft {
+  --decor-size: clamp(86px, 25vw, 142px);
+  left: -9%;
+  top: 12%;
+}
+
+.openingBubbleRight {
+  --decor-size: clamp(94px, 28vw, 154px);
+  right: -11%;
+  bottom: 19%;
+}
+
+.openingSparkleSet {
+  --decor-size: clamp(92px, 28vw, 156px);
+  right: 3%;
+  top: 17%;
+}
+
+.openingConfetti {
+  --decor-size: clamp(62px, 18vw, 98px);
+  left: -3%;
+  bottom: 15%;
+}
+
+/* Main baby hero */
+.heroLayer {
+  z-index: 1;
+}
+
+.heroGlow {
+  --decor-size: clamp(360px, 92vw, 690px);
+  left: -12%;
+  top: 10%;
+}
+
+.heroWash {
+  --decor-size: clamp(330px, 84vw, 680px);
+  left: -8%;
+  top: 12%;
+}
+
+.heroCluster {
+  --decor-size: clamp(70px, 19vw, 110px);
+  right: 2%;
+  top: 17%;
+}
+
+.heroHeart {
+  --decor-size: clamp(27px, 7vw, 42px);
+  left: 7%;
+  bottom: 18%;
+}
+
+.heroBow {
+  --decor-size: clamp(62px, 17vw, 94px);
+  left: 42%;
+  bottom: 8%;
+}
+
+/* Milestone: cute but quieter */
+.milestoneLayer {
+  z-index: 1;
+}
+
+.milestoneWash {
+  --decor-size: clamp(300px, 84vw, 560px);
+  left: 50%;
+  top: 15%;
+  transform: translateX(-50%) rotate(var(--decor-rotation));
+}
+
+.milestoneCorner {
+  --decor-size: clamp(72px, 20vw, 118px);
+  left: -7%;
+  bottom: 9%;
+}
+
+.milestoneFlower {
+  --decor-size: clamp(23px, 6vw, 35px);
+  right: 10%;
+  top: 18%;
+}
+
+.milestoneDots {
+  --decor-size: clamp(56px, 15vw, 86px);
+  left: 7%;
+  top: 14%;
+}
+
+/* Meaning/story: illustrated + warm */
+.meaningLayer {
+  z-index: 1;
+}
+
+.meaningWash {
+  --decor-size: clamp(260px, 72vw, 480px);
+  right: -23%;
+  top: 31%;
+}
+
+.meaningBotanical {
+  --decor-size: clamp(150px, 38vw, 245px);
+  left: -19%;
+  top: 4%;
+}
+
+.meaningPath {
+  --decor-size: clamp(170px, 47vw, 300px);
+  right: -7%;
+  top: 38%;
+}
+
+.meaningHeart {
+  --decor-size: clamp(25px, 7vw, 38px);
+  right: 7%;
+  bottom: 12%;
+}
+
+.meaningCluster {
+  --decor-size: clamp(58px, 15vw, 86px);
+  left: 3%;
+  bottom: 8%;
+}
+
+/* Moments of Joy: richest scrapbook treatment */
+.momentsLayer {
+  z-index: 1;
+}
+
+.momentsWashOne {
+  --decor-size: clamp(360px, 94vw, 720px);
+  left: -22%;
+  top: 12%;
+}
+
+.momentsWashTwo {
+  --decor-size: clamp(320px, 82vw, 630px);
+  right: -22%;
+  bottom: 7%;
+}
+
+.momentsStitch {
+  --decor-size: clamp(180px, 50vw, 350px);
+  left: 4%;
+  top: 48%;
+}
+
+.momentsCornerCluster {
+  --decor-size: clamp(70px, 19vw, 112px);
+  right: -4%;
+  top: 19%;
+}
+
+.momentsDots {
+  --decor-size: clamp(58px, 15vw, 90px);
+  left: 7%;
+  top: 17%;
+}
+
+.momentsCluster {
+  --decor-size: clamp(62px, 17vw, 102px);
+  right: 7%;
+  bottom: 15%;
+}
+
+/* Ceremony/event details: refined + ceremonial */
+.eventLayer {
+  z-index: 1;
+}
+
+.eventFloral {
+  --decor-size: clamp(230px, 58vw, 430px);
+  left: 50%;
+  top: -3%;
+  transform: translateX(-50%);
+}
+
+.eventBotanical {
+  --decor-size: clamp(135px, 34vw, 215px);
+  right: -17%;
+  bottom: 4%;
+}
+
+/* Donation: calm lotus + petals */
+.donationLayer {
+  z-index: 1;
+}
+
+.donationLotus {
+  --decor-size: clamp(300px, 76vw, 560px);
+  left: 50%;
+  top: 9%;
+  transform: translateX(-50%) rotate(var(--decor-rotation));
+}
+
+.donationPetalCluster {
+  --decor-size: clamp(105px, 28vw, 168px);
+  right: -12%;
+  top: 15%;
+}
+
+.donationFloral {
+  --decor-size: clamp(240px, 64vw, 460px);
+  left: 50%;
+  bottom: -5%;
+  transform: translateX(-50%);
+}
+
+.donationPetalOne {
+  --decor-size: clamp(25px, 6vw, 39px);
+  right: 11%;
+  top: 26%;
+}
+
+.donationPetalTwo {
+  --decor-size: clamp(22px, 5.5vw, 35px);
+  left: 9%;
+  bottom: 22%;
+}
+
+.donationPetalThree {
+  --decor-size: clamp(20px, 5vw, 31px);
+  right: 19%;
+  bottom: 12%;
+}
+
+/* Closing: visual loop back to the bubbles */
+.closingLayer {
+  z-index: 3;
+}
+
+.closingBotanical {
+  --decor-size: clamp(260px, 66vw, 500px);
+  right: -13%;
+  bottom: -2%;
+}
+
+.closingCluster {
+  --decor-size: clamp(92px, 24vw, 150px);
+  left: 3%;
+  top: 12%;
+}
+
+.closingBubbles {
+  --decor-size: clamp(92px, 25vw, 150px);
+  right: -6%;
+  top: 7%;
+}
+
+.closingSparkleSet {
+  --decor-size: clamp(82px, 22vw, 132px);
+  right: 6%;
+  top: 30%;
+}
+
+.closingPetalOne {
+  --decor-size: clamp(24px, 6vw, 37px);
+  right: 18%;
+  bottom: 18%;
+}
+
+.closingPetalTwo {
+  --decor-size: clamp(21px, 5vw, 33px);
+  left: 47%;
+  bottom: 8%;
+}
+
+.closingPetalThree {
+  --decor-size: clamp(18px, 4.5vw, 29px);
+  right: 35%;
+  top: 16%;
+}
+
+@keyframes bubbleDrift {
+  0% {
+    transform: translate3d(0, 7px, 0) rotate(var(--decor-rotation));
+  }
+  50% {
+    transform: translate3d(5px, -7px, 0) rotate(calc(var(--decor-rotation) + 2deg));
+  }
+  100% {
+    transform: translate3d(-4px, -17px, 0) rotate(calc(var(--decor-rotation) - 2deg));
+  }
+}
+
+@keyframes sparkleBreathe {
+  0%,
+  100% {
+    opacity: calc(var(--decor-opacity) - .12);
+    transform: scale(.94) rotate(var(--decor-rotation));
+  }
+  50% {
+    opacity: var(--decor-opacity);
+    transform: scale(1) rotate(var(--decor-rotation));
+  }
+}
+
+@keyframes petalDrift {
+  0% {
+    transform: translate3d(0, -5px, 0) rotate(var(--decor-rotation));
+  }
+  100% {
+    transform: translate3d(7px, 14px, 0) rotate(calc(var(--decor-rotation) + 8deg));
+  }
+}
+
+@media (min-width: 768px) {
+  .openingBubbleLeft {
+    left: 2%;
+  }
+
+  .openingBubbleRight {
+    right: 2%;
+  }
+
+  .heroGlow,
+  .heroWash {
+    left: 4%;
+  }
+
+  .heroCluster {
+    right: 5%;
+  }
+
+  .heroBow {
+    left: 27%;
+    bottom: 11%;
+  }
+
+  .milestoneCorner {
+    left: 3%;
+  }
+
+  .meaningBotanical {
+    left: -5%;
+  }
+
+  .meaningPath {
+    right: 3%;
+  }
+
+  .momentsStitch {
+    left: 14%;
+  }
+
+  .eventBotanical {
+    right: -4%;
+  }
+
+  .donationPetalCluster {
+    right: -2%;
+  }
+
+  .closingBotanical {
+    right: -2%;
+  }
+
+  .closingBubbles {
+    right: 3%;
+  }
+}
+
+@media (max-width: 390px) {
+  .openingSparkleSet {
+    right: -3%;
+  }
+
+  .heroCluster {
+    right: -5%;
+  }
+
+  .meaningBotanical {
+    left: -24%;
+  }
+
+  .eventBotanical {
+    right: -22%;
+  }
+
+  .closingCluster {
+    left: -4%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble,
+  .sparkle,
+  .petal {
+    animation: none !important;
+  }
+}
+
+
+/* Mobile performance: keep the artwork, stop decorative loops that would
+   otherwise animate even while their section is off-screen. */
+@media (max-width: 768px) {
+  .bubble,
+  .sparkle,
+  .petal {
+    animation: none !important;
+  }
+
+  .paperTexture {
+    opacity: .028;
+  }
+}

@@ -1,0 +1,431 @@
+"use client";
+
+import type { CSSProperties } from "react";
+import MilestoneSection from "./MilestoneSection";
+import MeaningSection from "./MeaningSection";
+import SectionBridge from "../decor/SectionBridge";
+import MotionSystem from "../motion/MotionSystem";
+import {
+  ScrapbookPhotoDecor,
+  ScrapbookTape,
+  SectionDecor,
+  SectionDivider,
+} from "../decor/SiteDecor";
+
+const photos = [
+  "/child's photo/01-100-days-baby-portrait.jpg",
+  "/child's photo/05-sleeping-newborn-closeup.jpg",
+  "/child's photo/03-parents-with-newborn-portrait.jpg",
+  "/child's photo/06-baby-smiling-with-parents.jpg",
+];
+
+type CeremonyDetailType = "date" | "time" | "venue";
+
+function CeremonyIllustration({ type }: { type: CeremonyDetailType }) {
+  if (type === "date") {
+    return (
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M18 17.5h28a5 5 0 0 1 5 5v27H13v-27a5 5 0 0 1 5-5Z" />
+        <path d="M13 27h38M22 12v10M42 12v10" />
+        <path d="M31.9 34.2c-3.8-4.5-10.3 1.1 0 9.1 10.3-8 3.8-13.6 0-9.1Z" />
+      </svg>
+    );
+  }
+
+  if (type === "time") {
+    return (
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="34" r="18.5" />
+        <path d="M32 22v12l8 5M24 11h16M27 15h10" />
+        <path d="M17.5 20.5 13 16M46.5 20.5 51 16" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M12 50h40M18 46h28M21 41h22M24 36h16" />
+      <path d="M27 36h10l-2-5h-6l-2 5ZM29 31h6l-1.5-5h-3L29 31Z" />
+      <path d="M30.5 26h3l-1.5-6-1.5 6ZM32 20v-5M29.5 17.5 32 14l2.5 3.5" />
+      <path d="M18 46c2-3 4-4 6-5M46 46c-2-3-4-4-6-5" />
+    </svg>
+  );
+}
+
+const details: Array<{
+  type: CeremonyDetailType;
+  label: string;
+  value: string;
+  note: string;
+}> = [
+  {
+    type: "date",
+    label: "Date",
+    value: "October 3, 2026",
+    note: "Saturday",
+  },
+  {
+    type: "time",
+    label: "Time",
+    value: "9:30 AM – 1:00 PM",
+    note: "100th Day Donation",
+  },
+  {
+    type: "venue",
+    label: "Venue",
+    value: "Insein Ywarma Monastery",
+    note: "Ceremony venue",
+  },
+];
+
+export default function InvitationContent() {
+  return (
+    <div id="invitation-content" className="love-site">
+      <MotionSystem />
+
+      <section className="love-hero" data-motion-section="hero">
+        <SectionDecor variant="hero" />
+
+        <div className="hero-inner">
+          <header className="hero-intro" data-reveal>
+            <p className="mini-label hero-kicker">YOU ARE KINDLY INVITED TO</p>
+            <p className="hero-baby-name">
+              Yoon Myat Heather <span>@Hailey</span>
+            </p>
+
+            <div className="hero-ornament" aria-hidden="true">
+              <span />
+              <b>♡</b>
+              <span />
+            </div>
+          </header>
+
+          <div className="hero-photo-shell">
+            <div className="hero-photo-glow" aria-hidden="true" />
+
+            <div className="essential-hundred-reveal" data-essential-hundred aria-hidden="true">
+              <span className="essential-hundred-piece essential-hundred-one">
+                <img
+                  src="/child's photo/01-100-days-baby-portrait.jpg"
+                  alt=""
+                  draggable={false}
+                />
+              </span>
+              <span className="essential-hundred-piece essential-hundred-zero-left">
+                <img
+                  src="/child's photo/09-opening-zero-left-photo.jpg"
+                  alt=""
+                  draggable={false}
+                />
+              </span>
+              <span className="essential-hundred-piece essential-hundred-zero-right">
+                <img
+                  src="/child's photo/10-opening-zero-right-photo.jpg"
+                  alt=""
+                  draggable={false}
+                />
+              </span>
+            </div>
+
+            <div className="hero-photo-blob">
+              <img
+                src="/child's photo/01-100-days-baby-portrait.jpg"
+                alt="Yoon Myat Heather, Hailey, celebrating 100 days"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </div>
+          </div>
+
+          <div className="hero-copy-new">
+            <h1 className="hero-title">
+              <span className="hero-title-main">100th Day</span>
+              <span className="hero-title-script">
+                Donation <i aria-hidden="true">♡</i>
+              </span>
+            </h1>
+
+            <div className="hero-invite-copy hero-event-block">
+              <div className="hero-event-details" aria-label="Event details">
+                <div className="hero-event-detail">
+                  <span className="hero-event-icon" aria-hidden="true">♡</span>
+                  <span className="hero-event-label">SATURDAY</span>
+                  <strong>October 3, 2026</strong>
+                </div>
+
+                <div className="hero-event-detail">
+                  <span className="hero-event-icon" aria-hidden="true">♡</span>
+                  <span className="hero-event-label">TIME</span>
+                  <strong>9:30 AM – 1:00 PM</strong>
+                </div>
+
+                <div className="hero-event-detail">
+                  <span className="hero-event-icon" aria-hidden="true">♡</span>
+                  <span className="hero-event-label">VENUE</span>
+                  <strong>Insein Ywarma Monastery</strong>
+                </div>
+              </div>
+
+              <a
+                className="hero-location-button"
+                href="https://maps.app.goo.gl/BNCS5A6bZF5h1R619?g_st=iv"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span aria-hidden="true">⌖</span>
+                View Location
+                <b aria-hidden="true">→</b>
+              </a>
+
+              <div className="hero-emotional-copy">
+                <p className="hero-emotional-title">100 tiny days,</p>
+                <p className="hero-emotional-script">
+                  a lifetime of love ahead. <span aria-hidden="true">♡</span>
+                </p>
+                <p className="hero-thankyou-copy">
+                  Thank you for celebrating this beautiful beginning with us.
+                </p>
+              </div>
+            </div>
+
+            <div className="hero-scroll-cue" aria-hidden="true">
+              <span>our little story</span>
+              <b>↓</b>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SectionBridge variant="heroToMilestone" />
+
+      <MilestoneSection />
+      <SectionBridge variant="milestoneToMeaning" />
+
+      <MeaningSection />
+      <SectionBridge variant="meaningToMoments" />
+
+      <section className="love-section moments-section" data-motion-section="moments">
+        <div className="moments-paper" aria-hidden="true" />
+        <SectionDecor variant="moments" />
+
+        <div className="mobile-shell moments-shell">
+          <header className="moments-heading" data-reveal>
+            <p className="mini-label">OUR LITTLE ONE</p>
+            <h2>
+              Moments <em>of Joy</em>
+              <span className="moments-title-heart" aria-hidden="true">♡</span>
+            </h2>
+            <p className="moments-subtitle">A hundred days of little memories.</p>
+
+            <SectionDivider />
+          </header>
+
+          <div className="moments-collage">
+            <figure className="moment-photo moment-photo-hero" data-reveal>
+              <ScrapbookPhotoDecor variant="hero" />
+              <ScrapbookTape kind="gingham" placement="topLeft" />
+              <img
+                src={photos[0]}
+                alt="Our little one celebrating 100 days"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure className="moment-photo moment-photo-newborn" data-reveal>
+              <ScrapbookPhotoDecor variant="newborn" />
+              <ScrapbookTape kind="paper" placement="topCenter" />
+              <img
+                src={photos[1]}
+                alt="A peaceful newborn memory"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure className="moment-photo moment-photo-family" data-reveal>
+              <ScrapbookPhotoDecor variant="family" />
+              <img
+                src={photos[2]}
+                alt="A family memory from the first 100 days"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure className="moment-photo moment-photo-smile" data-reveal>
+              <ScrapbookPhotoDecor variant="smile" />
+              <ScrapbookTape kind="paper" placement="corner" />
+              <img
+                src={photos[3]}
+                alt="A joyful memory with our little one"
+                loading="lazy"
+              />
+            </figure>
+
+            <p className="moments-handwritten" data-reveal>
+              our little sunshine <span aria-hidden="true">♡</span>
+            </p>
+          </div>
+
+          <div className="moments-closing" data-reveal>
+            <span>100 little days,</span>
+            <span>a lifetime of love. <b aria-hidden="true">♡</b></span>
+          </div>
+        </div>
+      </section>
+
+      <SectionBridge variant="momentsToEvent" />
+
+      <section id="event-details" className="love-section event-section" data-motion-section="event">
+        <div className="event-paper-texture" aria-hidden="true" />
+        <SectionDecor variant="event" />
+
+        <div className="mobile-shell event-shell">
+          <article className="ceremony-paper" data-reveal>
+            <div className="ceremony-paper-grain" aria-hidden="true" />
+
+            <header className="ceremony-heading">
+              <p className="ceremony-kicker">THE CEREMONY</p>
+              <h2>
+                Join Us for
+                <span>
+                  A Special Day <i aria-hidden="true">♡</i>
+                </span>
+              </h2>
+              <p className="ceremony-script">
+                celebrating 100 beautiful days <span aria-hidden="true">♡</span>
+              </p>
+
+              <SectionDivider variant="lotus" />
+            </header>
+
+            <div className="ceremony-details">
+              {details.map((detail, index) => (
+                <div
+                  className={`ceremony-detail ceremony-detail-${detail.type}`}
+                  data-reveal
+                  key={detail.label}
+                  style={{ "--detail-delay": `${0.12 + index * 0.11}s` } as CSSProperties}
+                >
+                  <span className="ceremony-illustration" aria-hidden="true">
+                    <CeremonyIllustration type={detail.type} />
+                  </span>
+
+                  <div className="ceremony-detail-copy">
+                    <span className="ceremony-detail-label">{detail.label}</span>
+                    <strong>{detail.value}</strong>
+                    <em>{detail.note}</em>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <a
+              className="ceremony-location-link"
+              href="https://maps.app.goo.gl/BNCS5A6bZF5h1R619?g_st=iv"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span aria-hidden="true">⌖</span>
+              View Location
+              <b aria-hidden="true">→</b>
+            </a>
+
+            <div className="ceremony-finial" aria-hidden="true">♡</div>
+          </article>
+        </div>
+      </section>
+
+      <SectionBridge variant="eventToDonation" />
+
+      <section className="love-section donation-section" data-motion-section="donation">
+        <div className="donation-paper" aria-hidden="true" />
+        <SectionDecor variant="donation" />
+
+        <div className="mobile-shell donation-wrap">
+          <header className="donation-heading" data-reveal>
+            <p className="mini-label">A GESTURE OF GRATITUDE</p>
+
+            <div className="donation-ornament" aria-hidden="true">
+              <span />
+              <b>♡</b>
+              <span />
+            </div>
+
+            <h2>Sharing Love</h2>
+          </header>
+
+          <article className="donation-card" data-reveal>
+            <p className="donation-lead">
+              In celebration of our little one&apos;s first 100 days, we&apos;re
+              sharing this joy through a donation made with gratitude and love.
+            </p>
+
+            <SectionDivider variant="lotus" />
+
+            <p className="donation-presence">
+              Your presence, warm wishes, and blessings are already the most
+              meaningful gifts to our family.
+            </p>
+
+            <blockquote className="donation-quote">
+              Love grows when it is shared.
+            </blockquote>
+          </article>
+
+          <p className="donation-closing-note" data-reveal>
+            With thankful hearts, we celebrate and give. <span aria-hidden="true">♡</span>
+          </p>
+        </div>
+      </section>
+
+      <SectionBridge variant="donationToClosing" />
+
+      <section className="love-closing" data-motion-section="closing">
+        <SectionDecor variant="closing" />
+        <div className="closing-paper" aria-hidden="true" />
+
+        <div className="closing-inner">
+          <figure className="closing-photo" data-reveal>
+            <span className="closing-photo-wash" aria-hidden="true" />
+            <img
+              src="/child's photo/06-baby-smiling-with-parents.jpg"
+              alt="A joyful family memory with our little one"
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="closing-photo-heart" aria-hidden="true">♡</span>
+          </figure>
+
+          <div className="closing-copy-new" data-reveal>
+            <p className="mini-label">WITH ALL OUR LOVE</p>
+
+            <div className="closing-ornament" aria-hidden="true">
+              <span />
+              <b>♡</b>
+              <span />
+            </div>
+
+            <h2>
+              <span>Thank You</span>
+              <em>for sharing in our joy.</em>
+            </h2>
+
+            <p className="closing-message">
+              Thank you for being part of this beautiful beginning and for
+              surrounding our little one with so much love.
+            </p>
+
+            <p className="closing-see-you">See you on this special day ♡</p>
+
+            <SectionDivider variant="lotus" />
+
+            <div className="closing-signoff" aria-hidden="true">
+              <span>with grateful hearts,</span>
+              <b>our little family ♡</b>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import styles from "./MotionSystem.module.css";
+import { getEssentialMotionProfile } from "./motionProfile";
 
 const MOTION_READY_EVENT = "invitation:motion-ready";
 
@@ -142,24 +143,13 @@ export default function MotionSystem() {
         let resizeTimer: ReturnType<typeof setTimeout> | null = null;
 
         const context = gsap.context(() => {
-          const compactMotion = window.innerWidth <= 768;
-          const deviceMemory =
-            (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8;
-          const hardwareThreads = navigator.hardwareConcurrency || 8;
-          const lowPowerMotion =
-            compactMotion && (deviceMemory <= 4 || hardwareThreads <= 4);
-
-          // Essential never removes the motion language on mobile. Lower-power
-          // phones keep every effect with slightly shorter travel and softer blur.
-          const distanceScale = compactMotion
-            ? lowPowerMotion ? 0.42 : 0.52
-            : 1;
-          const durationScale = compactMotion
-            ? lowPowerMotion ? 0.82 : 0.88
-            : 1;
-          const staggerScale = compactMotion
-            ? lowPowerMotion ? 0.7 : 0.78
-            : 1;
+          const {
+            compactMotion,
+            lowPowerMotion,
+            distanceScale,
+            durationScale,
+            staggerScale,
+          } = getEssentialMotionProfile();
           const allReveal = asElements<HTMLElement>(root, "[data-reveal]");
 
           // GSAP owns reveal transforms once the motion system is active.

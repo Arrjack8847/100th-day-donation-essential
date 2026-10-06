@@ -481,6 +481,37 @@ body:has(#invitation-content:target) {
   mask-image: url("/opening/100-mask-zero-right.svg");
 }
 
+.hero-tap-burst {
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hero-tap-burst span {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  color: #d88e74;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(.9rem, 3vw, 1.25rem);
+  line-height: 1;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(.35);
+  will-change: transform, opacity;
+}
+
+.hero-tap-burst span:nth-child(even) {
+  color: #d3a459;
+  font-size: clamp(.72rem, 2.5vw, 1rem);
+}
+
+.hero-photo-shell {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .hero-photo-blob {
   position: relative;
   width: 100%;

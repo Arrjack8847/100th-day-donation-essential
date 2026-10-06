@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  --font-serif: "Cormorant Garamond";
+  --font-script: "Dancing Script";
   --ivory: #f7f2e8;
   --paper: #fbf8f1;
   --paper-strong: #fffdf8;

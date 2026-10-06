@@ -1,0 +1,101 @@
+name: Build Social Sharing Preview
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-preview:
+    if: github.event.head_commit.message == 'Build social sharing preview'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Assemble selected social image
+        shell: bash
+        run: |
+          mkdir -p public
+          cat .social-share/part0 .social-share/part1 .social-share/part2 .social-share/part3 .social-share/part4 .social-share/part5 \
+            | tr -d '\n\r' \
+            | base64 --decode > public/social-share.jpg
+          file public/social-share.jpg
+          test -s public/social-share.jpg
+
+      - name: Add Open Graph and social metadata
+        shell: bash
+        run: |
+          cat > app/layout.tsx <<'EOF'
+          import type { Metadata, Viewport } from "next";
+          import "./globals.css";
+
+          const siteUrl =
+            process.env.NEXT_PUBLIC_SITE_URL ??
+            "https://100th-day-donation-essential.vercel.app";
+
+          export const metadata: Metadata = {
+            metadataBase: new URL(siteUrl),
+            title: "100 Days of Love | 100th Day Donation",
+            description:
+              "A warm, mobile-first invitation celebrating 100 days of love, gratitude and giving.",
+            openGraph: {
+              title: "100 Days of Love | 100th Day Donation",
+              description:
+                "Join us in celebrating 100 beautiful days of love, gratitude and giving.",
+              type: "website",
+              images: [
+                {
+                  url: "/social-share.jpg",
+                  width: 240,
+                  height: 520,
+                  alt: "100 Days of Love invitation preview",
+                },
+              ],
+            },
+            twitter: {
+              card: "summary_large_image",
+              title: "100 Days of Love | 100th Day Donation",
+              description:
+                "Join us in celebrating 100 beautiful days of love, gratitude and giving.",
+              images: ["/social-share.jpg"],
+            },
+          };
+
+          export const viewport: Viewport = {
+            width: "device-width",
+            initialScale: 1,
+            viewportFit: "cover",
+          };
+
+          export default function RootLayout({
+            children,
+          }: Readonly<{
+            children: React.ReactNode;
+          }>) {
+            return (
+              <html lang="en">
+                <body>{children}</body>
+              </html>
+            );
+          }
+          EOF
+
+      - name: Clean temporary migration files
+        shell: bash
+        run: |
+          rm -rf .social-share
+          rm -f .github/workflows/assemble-social-share.yml
+
+      - name: Commit social preview
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add selected social sharing preview"
+          git push origin main

@@ -222,11 +222,20 @@
     filter: none;
   }
 
-  .heroToMilestone .primary,
-  .heroToMilestone .secondary,
-  .eventToDonation .primary,
+  .heroToMilestone .primary {
+    animation-duration: 16s;
+  }
+
+  .heroToMilestone .secondary {
+    animation-duration: 9.5s;
+  }
+
+  .eventToDonation .primary {
+    animation-duration: 19s;
+  }
+
   .donationToClosing .primary {
-    animation: none !important;
+    animation-duration: 18s;
   }
 }
 

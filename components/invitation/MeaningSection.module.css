@@ -16,7 +16,7 @@
   inset: 0;
   z-index: -3;
   opacity: .055;
-  background: url("/components/paper-grain.png") center / 760px auto repeat;
+  background: url("/components/paper-grain.webp") center / 760px auto repeat;
   mix-blend-mode: multiply;
   pointer-events: none;
 }

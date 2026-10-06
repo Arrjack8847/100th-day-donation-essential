@@ -47,7 +47,7 @@ export default function MilestoneSection() {
           >
             <img
               className={styles.portrait}
-              src="/photo_2026-09-28_14-18-19-Photoroom.png"
+              src="/photo_2026-09-28_14-18-19-Photoroom.webp"
               alt="Our little one celebrating 100 days"
               loading="lazy"
               decoding="async"
@@ -77,7 +77,7 @@ export default function MilestoneSection() {
           >
             <img
               className={`${styles.doodleAsset} ${styles.sparkleLeft}`}
-              src="/sparkle-doodle.png"
+              src="/sparkle-doodle.webp"
               alt=""
               loading="lazy"
               decoding="async"
@@ -85,7 +85,7 @@ export default function MilestoneSection() {
             />
             <img
               className={`${styles.doodleAsset} ${styles.sparkleRight}`}
-              src="/sparkle-doodle.png"
+              src="/sparkle-doodle.webp"
               alt=""
               loading="lazy"
               decoding="async"
@@ -93,7 +93,7 @@ export default function MilestoneSection() {
             />
             <img
               className={`${styles.doodleAsset} ${styles.heartLeft}`}
-              src="/components/heart-doodle.png"
+              src="/components/heart-doodle.webp"
               alt=""
               loading="lazy"
               decoding="async"
@@ -101,7 +101,7 @@ export default function MilestoneSection() {
             />
             <img
               className={`${styles.doodleAsset} ${styles.heartRight}`}
-              src="/components/heart-doodle.png"
+              src="/components/heart-doodle.webp"
               alt=""
               loading="lazy"
               decoding="async"
@@ -120,7 +120,7 @@ export default function MilestoneSection() {
         <div className={styles.message} data-motion-role="milestone-message">
           <img
             className={styles.textArtwork}
-            src="/text.png"
+            src="/text.webp"
             alt="100 Days of Love"
             loading="lazy"
             decoding="async"
@@ -134,7 +134,7 @@ export default function MilestoneSection() {
         <div className={styles.bannerWrap} data-motion-role="milestone-banner" aria-hidden="true">
           <img
             className={styles.banner}
-            src="/banner.png"
+            src="/banner.webp"
             alt=""
             loading="lazy"
             decoding="async"

@@ -163,7 +163,7 @@ a {
   position: absolute;
   inset: 0;
   opacity: .14;
-  background: url("/components/paper-grain.png") center / 760px auto repeat;
+  background: url("/components/paper-grain.webp") center / 760px auto repeat;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
@@ -459,7 +459,7 @@ a {
   z-index: -2;
   pointer-events: none;
   opacity: .065;
-  background: url("/components/paper-grain.png") center / 760px auto repeat;
+  background: url("/components/paper-grain.webp") center / 760px auto repeat;
   mix-blend-mode: multiply;
 }
 
@@ -505,7 +505,7 @@ a {
   z-index: 0;
   pointer-events: none;
   opacity: .045;
-  background: url("/components/paper-grain.png") center / 680px auto repeat;
+  background: url("/components/paper-grain.webp") center / 680px auto repeat;
   mix-blend-mode: multiply;
 }
 
@@ -1051,7 +1051,7 @@ a {
   z-index: -3;
   pointer-events: none;
   opacity: .065;
-  background: url("/components/paper-grain.png") center / 760px auto repeat;
+  background: url("/components/paper-grain.webp") center / 760px auto repeat;
   mix-blend-mode: multiply;
 }
 
@@ -1137,7 +1137,7 @@ a {
   z-index: -2;
   pointer-events: none;
   opacity: .045;
-  background: url("/components/paper-grain.png") center / 680px auto repeat;
+  background: url("/components/paper-grain.webp") center / 680px auto repeat;
   mix-blend-mode: multiply;
 }
 
@@ -1958,7 +1958,7 @@ a {
   z-index: -3;
   pointer-events: none;
   opacity: .075;
-  background: url("/components/paper-grain.png") center / 760px auto repeat;
+  background: url("/components/paper-grain.webp") center / 760px auto repeat;
   mix-blend-mode: multiply;
 }
 
@@ -2579,7 +2579,7 @@ a {
   z-index: -3;
   pointer-events: none;
   opacity: .075;
-  background: url("/components/paper-grain.png") center / 760px auto repeat;
+  background: url("/components/paper-grain.webp") center / 760px auto repeat;
   mix-blend-mode: multiply;
 }
 
@@ -3195,7 +3195,7 @@ a {
   z-index: -3;
   pointer-events: none;
   opacity: .065;
-  background: url("/components/paper-grain.png") center / 760px auto repeat;
+  background: url("/components/paper-grain.webp") center / 760px auto repeat;
   mix-blend-mode: multiply;
 }
 

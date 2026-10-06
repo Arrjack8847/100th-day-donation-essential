@@ -15,7 +15,7 @@ const ASSETS = {
   "paper-tape": "/components/paper-tape.png",
   "stitched-line": "/components/stitched-line.svg",
   "heart-divider": "/components/heart-divider.svg",
-  "paper-grain": "/components/paper-grain.png",
+  "paper-grain": "/components/paper-grain.webp",
   "bubble-cluster": "/components/bubble-cluster.png",
 
   "botanical-corner": "/components/botanical-corner.svg",

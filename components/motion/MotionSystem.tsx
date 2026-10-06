@@ -1431,6 +1431,8 @@ export default function MotionSystem() {
 
   return (
     <div ref={layerRef} className={styles.layer} aria-hidden="true">
+      <span className={styles.storyThread} data-story-thread />
+
       <div
         className={styles.memoryTrail}
         data-memory-trail
